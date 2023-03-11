@@ -12,7 +12,7 @@ sweep_id = wandb.sweep(sweep=CONFIG, project='test-assgn')
 
 def main():
   run = wandb.init()
-  (xtrain_inp, ytrain_inp), (xval_inp, yval_inp), (xtest_inp, ytest_inp) = scale_dataset(xtrain, ytrain, xval, yval, xtest, ytest, wandb.config.scaling)
+  (xtrain_inp, ytrain_inp), (xval_inp, yval_inp), (xtest_inp, ytest_inp) = scale_dataset(xtrain, ytrain, xval, yval, xtest, ytest, wandb.config.data_scaling)
 
   # AUGMENT DATA SET?
 
@@ -25,7 +25,7 @@ def main():
             'BETA': wandb.config.beta,
             'BETA1': wandb.config.beta1,
             'BETA2': wandb.config.beta2, 
-            'EPSILON': wandb.config.epsiolon,
+            'EPSILON': wandb.config.epsilon,
             'WD': wandb.config.weight_decay,
             'W_init': wandb.config.weight_initialization,
             'activation': wandb.config.activation,

@@ -73,7 +73,8 @@ def mean_squared_error(y, yhat):
   return np.mean(np.sum((y-yhat)**2, axis=1))
 
 def mean_squared_error_der(y, yhat):
-  pass
+  s = np.sum((y-yhat) * yhat)
+  return yhat * (s - (y - yhat))
 
 def accuracy(y, yhat):
   return np.sum(np.argmax(y, axis=1) ==  np.argmax(yhat, axis=1)) / len(y)
@@ -122,15 +123,20 @@ def scale_dataset(xtrain, ytrain, xval, yval, xtest, ytest, scaling):
       ytrain_inp = np.array(pd.get_dummies(ytrain))
       yval_inp = np.array(pd.get_dummies(yval))
       ytest_inp = np.array(pd.get_dummies(ytest))
+
     elif scaling == 'standard':
+      xtrain_inp = xtrain.reshape((xtrain.shape[0], -1))
+      xval_inp = xval.reshape((xval.shape[0], -1))  
+      xtest_inp = xtest.reshape((xtest.shape[0], -1))     
       mu = xtrain_inp.mean(axis=0)
       sigma = xtrain_inp.std(axis=0)
-      xtrain_inp = (xtrain.reshape((xtrain.shape[0], -1)) - mu) / sigma
-      xval_inp = (xval.reshape((xval.shape[0], -1)) - mu) / sigma
-      xtest_inp = (xtest.reshape((xtest.shape[0], -1)) - mu) / sigma
+      xtrain_inp = (xtrain_inp - mu) / sigma
+      xval_inp = (xval_inp - mu) / sigma
+      xtest_inp = (xtest_inp - mu) / sigma
       ytrain_inp = np.array(pd.get_dummies(ytrain))
       yval_inp = np.array(pd.get_dummies(yval))
       ytest_inp = np.array(pd.get_dummies(ytest))
+
     else:
       raise Exception('Incorrect Data Scaling Input')
 

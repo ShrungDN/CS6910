@@ -1,0 +1,36 @@
+wandb_version: 1
+
+activation:
+  value: tanh
+batch_size:
+  value: 32
+beta:
+  value: 0.9
+beta1:
+  value: 0.9
+beta2:
+  value: 0.999
+data_augmentation:
+  value: false
+data_scaling:
+  value: min_max
+epochs:
+  value: 10
+epsilon:
+  value: 1.0e-06
+hidden_size:
+  value: 64
+loss_func:
+  value: mean_squared_error
+lr:
+  value: 0.0001
+momentum:
+  value: 0.9
+n_hidden:
+  value: 3
+optimizer:
+  value: momentum
+weight_decay:
+  value: 0
+weight_initialization:
+  value: Xavier

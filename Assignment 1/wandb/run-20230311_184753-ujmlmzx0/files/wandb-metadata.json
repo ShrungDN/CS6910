@@ -1,0 +1,36 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.9.13",
+    "heartbeatAt": "2023-03-11T13:17:55.021067",
+    "startedAt": "2023-03-11T13:17:53.901701",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "d:\\IITM Academic Stuff\\Sem 8 Books\\CS6910\\CS6910\\Assignment 1\\wandb_train.py",
+    "codePath": "wandb_train.py",
+    "host": "Shrung-PC",
+    "username": "Shrung",
+    "executable": "C:\\Users\\Shrung\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\\python.exe",
+    "cpu_count": 2,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 2511.0,
+        "min": 0.0,
+        "max": 2712.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2511.0,
+            "min": 0.0,
+            "max": 2712.0
+        }
+    ],
+    "disk": {
+        "total": 253.90624618530273,
+        "used": 114.83363723754883
+    },
+    "memory": {
+        "total": 31.85928726196289
+    }
+}
