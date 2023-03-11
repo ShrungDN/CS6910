@@ -1,0 +1,60 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.11
+    framework: keras
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1678537613.256141
+    t:
+      1:
+      - 2
+      - 3
+      - 5
+      - 53
+      - 55
+      2:
+      - 2
+      - 3
+      - 5
+      - 53
+      - 55
+      3:
+      - 17
+      - 23
+      - 37
+      4: 3.9.13
+      5: 0.13.11
+      8:
+      - 3
+      - 5
+activation:
+  desc: null
+  value: tanh
+batch_size:
+  desc: null
+  value: 16
+epochs:
+  desc: null
+  value: 10
+hidden_size:
+  desc: null
+  value: 32
+lr:
+  desc: null
+  value: 0.001
+n_hidden:
+  desc: null
+  value: 5
+optimizer:
+  desc: null
+  value: rmsprop
+weight_decay:
+  desc: null
+  value: 0
+weight_initialization:
+  desc: null
+  value: Xavier

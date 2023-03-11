@@ -112,11 +112,26 @@ def get_dataset(dataset):
 
     xtrain, xval, ytrain, yval = train_test_split(xfull, yfull, test_size = 0.1)
 
-    xtrain_inp = xtrain.reshape((xtrain.shape[0], -1))/255.0
-    xval_inp = xval.reshape((xval.shape[0], -1))/255.0
-    xtest_inp = xtest.reshape((xtest.shape[0], -1))/255.0
-    ytrain_inp = np.array(pd.get_dummies(ytrain))
-    yval_inp = np.array(pd.get_dummies(yval))
-    ytest_inp = np.array(pd.get_dummies(ytest))
+    return (xtrain, ytrain), (xval, yval), (xtest, ytest), class_labels
 
-    return (xtrain_inp, ytrain_inp), (xval_inp, yval_inp), (xtest_inp, ytest_inp), class_labels
+def scale_dataset(xtrain, ytrain, xval, yval, xtest, ytest, scaling):
+    if scaling == 'min_max':
+      xtrain_inp = xtrain.reshape((xtrain.shape[0], -1))/255.0
+      xval_inp = xval.reshape((xval.shape[0], -1))/255.0
+      xtest_inp = xtest.reshape((xtest.shape[0], -1))/255.0
+      ytrain_inp = np.array(pd.get_dummies(ytrain))
+      yval_inp = np.array(pd.get_dummies(yval))
+      ytest_inp = np.array(pd.get_dummies(ytest))
+    elif scaling == 'standard':
+      mu = xtrain_inp.mean(axis=0)
+      sigma = xtrain_inp.std(axis=0)
+      xtrain_inp = (xtrain.reshape((xtrain.shape[0], -1)) - mu) / sigma
+      xval_inp = (xval.reshape((xval.shape[0], -1)) - mu) / sigma
+      xtest_inp = (xtest.reshape((xtest.shape[0], -1)) - mu) / sigma
+      ytrain_inp = np.array(pd.get_dummies(ytrain))
+      yval_inp = np.array(pd.get_dummies(yval))
+      ytest_inp = np.array(pd.get_dummies(ytest))
+    else:
+      raise Exception('Incorrect Data Scaling Input')
+
+    return (xtrain_inp, ytrain_inp), (xval_inp, yval_inp), (xtest_inp, ytest_inp)

@@ -1,0 +1,62 @@
+2023-03-11 17:56:53,183 INFO    StreamThr :6684 [internal.py:wandb_internal():87] W&B internal server running at pid: 6684, started at: 2023-03-11 17:56:53.182385
+2023-03-11 17:56:53,185 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status
+2023-03-11 17:56:53,265 INFO    WriterThread:6684 [datastore.py:open_for_write():85] open: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\run-4ygqqsq5.wandb
+2023-03-11 17:56:53,266 DEBUG   SenderThread:6684 [sender.py:send():336] send: header
+2023-03-11 17:56:53,266 DEBUG   SenderThread:6684 [sender.py:send():336] send: run
+2023-03-11 17:56:53,967 INFO    SenderThread:6684 [dir_watcher.py:__init__():219] watching files in: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files
+2023-03-11 17:56:53,967 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: check_version
+2023-03-11 17:56:53,974 INFO    SenderThread:6684 [sender.py:_start_run_threads():1078] run started: 4ygqqsq5 with start time 1678537613.256141
+2023-03-11 17:56:53,974 DEBUG   SenderThread:6684 [sender.py:send_request():363] send_request: summary_record
+2023-03-11 17:56:53,974 INFO    SenderThread:6684 [sender.py:_save_file():1332] saving file wandb-summary.json with policy end
+2023-03-11 17:56:53,975 DEBUG   SenderThread:6684 [sender.py:send_request():363] send_request: check_version
+2023-03-11 17:56:54,027 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: run_start
+2023-03-11 17:56:54,041 DEBUG   HandlerThread:6684 [system_info.py:__init__():31] System info init
+2023-03-11 17:56:54,042 DEBUG   HandlerThread:6684 [system_info.py:__init__():46] System info init done
+2023-03-11 17:56:54,042 INFO    HandlerThread:6684 [system_monitor.py:start():183] Starting system monitor
+2023-03-11 17:56:54,042 INFO    SystemMonitor:6684 [system_monitor.py:_start():147] Starting system asset monitoring threads
+2023-03-11 17:56:54,042 INFO    HandlerThread:6684 [system_monitor.py:probe():204] Collecting system info
+2023-03-11 17:56:54,045 INFO    SystemMonitor:6684 [interfaces.py:start():187] Started cpu monitoring
+2023-03-11 17:56:54,045 DEBUG   HandlerThread:6684 [system_info.py:probe():195] Probing system
+2023-03-11 17:56:54,045 DEBUG   HandlerThread:6684 [system_info.py:probe():240] Probing system done
+2023-03-11 17:56:54,045 DEBUG   HandlerThread:6684 [system_monitor.py:probe():213] {'os': 'Windows-10-10.0.19044-SP0', 'python': '3.9.13', 'heartbeatAt': '2023-03-11T12:26:54.045791', 'startedAt': '2023-03-11T12:26:53.147762', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'd:\\IITM Academic Stuff\\Sem 8 Books\\CS6910\\CS6910\\Assignment 1\\wandb_train.py', 'codePath': 'wandb_train.py', 'host': 'Shrung-PC', 'username': 'Shrung', 'executable': 'C:\\Users\\Shrung\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\\python.exe', 'cpu_count': 2, 'cpu_count_logical': 4, 'cpu_freq': {'current': 803.0, 'min': 0.0, 'max': 2712.0}, 'cpu_freq_per_core': [{'current': 803.0, 'min': 0.0, 'max': 2712.0}], 'disk': {'total': 253.90624618530273, 'used': 114.83569717407227}, 'memory': {'total': 31.85928726196289}}
+2023-03-11 17:56:54,045 INFO    HandlerThread:6684 [system_monitor.py:probe():214] Finished collecting system info
+2023-03-11 17:56:54,045 INFO    HandlerThread:6684 [system_monitor.py:probe():217] Publishing system info
+2023-03-11 17:56:54,045 DEBUG   HandlerThread:6684 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-03-11 17:56:54,046 INFO    SystemMonitor:6684 [interfaces.py:start():187] Started disk monitoring
+2023-03-11 17:56:54,047 DEBUG   HandlerThread:6684 [system_info.py:_save_pip():67] Saving pip packages done
+2023-03-11 17:56:54,047 INFO    SystemMonitor:6684 [interfaces.py:start():187] Started memory monitoring
+2023-03-11 17:56:54,061 INFO    SystemMonitor:6684 [interfaces.py:start():187] Started network monitoring
+2023-03-11 17:56:54,061 INFO    HandlerThread:6684 [system_monitor.py:probe():219] Finished publishing system info
+2023-03-11 17:56:54,073 DEBUG   SenderThread:6684 [sender.py:send():336] send: files
+2023-03-11 17:56:54,073 INFO    SenderThread:6684 [sender.py:_save_file():1332] saving file wandb-metadata.json with policy now
+2023-03-11 17:56:54,103 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: stop_status
+2023-03-11 17:56:54,104 DEBUG   SenderThread:6684 [sender.py:send_request():363] send_request: stop_status
+2023-03-11 17:56:54,424 DEBUG   SenderThread:6684 [sender.py:send():336] send: telemetry
+2023-03-11 17:56:54,424 DEBUG   SenderThread:6684 [sender.py:send():336] send: telemetry
+2023-03-11 17:56:54,425 DEBUG   SenderThread:6684 [sender.py:send():336] send: run
+2023-03-11 17:56:54,752 INFO    SenderThread:6684 [sender.py:send_run():955] updated run: 4ygqqsq5
+2023-03-11 17:56:54,980 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\config.yaml
+2023-03-11 17:56:54,981 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_created():278] file/dir created: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\requirements.txt
+2023-03-11 17:56:54,981 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_created():278] file/dir created: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\wandb-metadata.json
+2023-03-11 17:56:54,981 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_created():278] file/dir created: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\wandb-summary.json
+2023-03-11 17:56:55,004 INFO    wandb-upload_0:6684 [upload_job.py:push():138] Uploaded file C:\Users\Shrung\AppData\Local\Temp\tmpy9234b0lwandb\b86su5qf-wandb-metadata.json
+2023-03-11 17:56:58,782 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report
+2023-03-11 17:57:00,051 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_created():278] file/dir created: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:02,070 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:04,019 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report
+2023-03-11 17:57:08,122 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:09,099 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: keepalive
+2023-03-11 17:57:09,179 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report
+2023-03-11 17:57:14,147 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: keepalive
+2023-03-11 17:57:14,195 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:15,108 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report
+2023-03-11 17:57:19,188 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: keepalive
+2023-03-11 17:57:20,250 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:20,847 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report
+2023-03-11 17:57:24,245 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: keepalive
+2023-03-11 17:57:26,113 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report
+2023-03-11 17:57:26,309 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:27,313 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\config.yaml
+2023-03-11 17:57:29,288 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: keepalive
+2023-03-11 17:57:30,337 INFO    Thread-13 :6684 [dir_watcher.py:_on_file_modified():295] file/dir modified: D:\IITM Academic Stuff\Sem 8 Books\CS6910\CS6910\Assignment 1\wandb\run-20230311_175653-4ygqqsq5\files\output.log
+2023-03-11 17:57:32,384 DEBUG   HandlerThread:6684 [handler.py:handle_request():144] handle_request: status_report

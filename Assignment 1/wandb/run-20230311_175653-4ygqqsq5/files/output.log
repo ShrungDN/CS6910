@@ -1,0 +1,6 @@
+
+Epoch 1:: Training: Loss = 0.4011 Accuracy = 0.8543  Validation: Loss = 0.4089 Accuracy = 0.8483
+Epoch 2:: Training: Loss = 0.3828 Accuracy = 0.8595  Validation: Loss = 0.3978 Accuracy = 0.8535
+Epoch 3:: Training: Loss = 0.3334 Accuracy = 0.8800  Validation: Loss = 0.3514 Accuracy = 0.8718
+Epoch 4:: Training: Loss = 0.3394 Accuracy = 0.8789  Validation: Loss = 0.3651 Accuracy = 0.8668
+Epoch 5:: Training: Loss = 0.3610 Accuracy = 0.8722  Validation: Loss = 0.3799 Accuracy = 0.8680
