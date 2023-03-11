@@ -73,7 +73,7 @@ def mean_squared_error(y, yhat):
   return np.mean(np.sum((y-yhat)**2, axis=1))
 
 def mean_squared_error_der(y, yhat):
-  s = np.sum((y-yhat) * yhat)
+  s = np.sum(((y-yhat) * yhat), axis=1, keepdims=True)
   return yhat * (s - (y - yhat))
 
 def accuracy(y, yhat):

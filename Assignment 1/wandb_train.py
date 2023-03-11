@@ -47,4 +47,4 @@ def main():
         'val_loss': logs['val_loss'][i]
     })
 
-wandb.agent(sweep_id, function=main, count=10)
+wandb.agent(sweep_id, function=main, count=100)
