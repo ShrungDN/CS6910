@@ -2,7 +2,8 @@ import wandb
 from train import *
 from sweep_configurations import *
 
-CONFIG = sweep_configuration_1
+CONFIG = sweep_configuration_3
+
 DATASET = 'fashion_mnist'
 ENTITY = 'me19b168'
 PROJECT ='ME19B168_CS6910_Assgn1'
@@ -15,7 +16,7 @@ NAME = 'me19b168'
 wandb.login()
 
 # Change _i to view different set of images
-_i = 5 
+_i = 7 
 _idxs = {k:np.where(ytrain==k)[0][_i] for k in set(ytrain)}
 run = wandb.init(entity=ENTITY, project=PROJECT, name=NAME)
 for _k in _idxs.keys():

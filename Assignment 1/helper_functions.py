@@ -111,7 +111,7 @@ def get_dataset(dataset):
     else:
         raise Exception('Incorrect Dataset Name')
 
-    xtrain, xval, ytrain, yval = train_test_split(xfull, yfull, test_size = 0.1)
+    xtrain, xval, ytrain, yval = train_test_split(xfull, yfull, test_size = 0.1, random_state=2)
 
     return (xtrain, ytrain), (xval, yval), (xtest, ytest), class_labels
 
