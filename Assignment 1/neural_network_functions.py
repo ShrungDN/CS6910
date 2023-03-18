@@ -24,8 +24,11 @@ def forward(inp, params, activation):
   yhat = cache['H' + str(L)]
   return yhat, cache
 
-def eval_params(x, y, params, activation, loss_func, WD):
-  yhat, _ = forward(x, params, activation)
+def eval_params(x, y, params, config):
+  act, act_der = get_activation(config['activation'])
+  loss_func, loss_func_der = get_loss_func(config['loss_func'])
+  WD = config['WD']
+  yhat, _ = forward(x, params, act)
   loss = loss_func(y, yhat) + np.sum([0.5 * WD * np.linalg.norm(params[k]) for k in params.keys()])
   acc = accuracy(y, yhat)
   return loss, acc

@@ -4,17 +4,29 @@ from sweep_configurations import *
 
 CONFIG = sweep_configuration_1
 DATASET = 'fashion_mnist'
+ENTITY = 'me19b168'
+PROJECT ='ME19B168_CS6910_Assgn1'
+NAME = 'me19b168'
+
+
 
 (xtrain, ytrain), (xval, yval), (xtest, ytest), class_labels = get_dataset(DATASET)
 
 wandb.login()
-sweep_id = wandb.sweep(sweep=CONFIG, project='test-assgn')
+
+# Change _i to view different set of images
+_i = 5 
+_idxs = {k:np.where(ytrain==k)[0][_i] for k in set(ytrain)}
+run = wandb.init(entity=ENTITY, project=PROJECT, name=NAME)
+for _k in _idxs.keys():
+    wandb.log({f'{class_labels[_k]}':[wandb.Image(xtrain[_idxs[_k]])]})
+wandb.finish()
+
+sweep_id = wandb.sweep(sweep=CONFIG, project=PROJECT)
 
 def main():
-  run = wandb.init()
+  run = wandb.init(entity=ENTITY, project=PROJECT, name=NAME)
   (xtrain_inp, ytrain_inp), (xval_inp, yval_inp), (xtest_inp, ytest_inp) = scale_dataset(xtrain, ytrain, xval, yval, xtest, ytest, wandb.config.data_scaling)
-
-  # AUGMENT DATA SET?
 
   config = {'EPOCHS': wandb.config.epochs,
             'BATCH_SIZE': wandb.config.batch_size,
@@ -32,9 +44,9 @@ def main():
             'n_hidden': [wandb.config.hidden_size] * wandb.config.n_hidden
             }
 
-  str1 = f'ep:{wandb.config.epochs}_hl:{wandb.config.n_hidden}_nhl:{wandb.config.hidden_size}_l2:{wandb.config.weight_decay}_'
-  str2 = f'lr:{wandb.config.lr}_opt:{wandb.config.optimizer}_bs:{wandb.config.batch_size}_wi:{wandb.config.weight_initialization}_act:{wandb.config.activation}'
-  run.name = str1 + str2 
+  name = 'ep:{}_hl:{}_lr:{}_opt:{}_bs:{}'.format(config['EPOCHS'], f'{wandb.config.hidden_size}^{wandb.config.n_hidden}',
+                                                 config['LR'], config['optim'], config['BATCH_SIZE'])
+  run.name = name
 
   params, logs = train(xtrain=xtrain_inp, ytrain=ytrain_inp, xval=xval_inp, yval=yval_inp, config=config, verbose=True, seed=0)
   
@@ -46,5 +58,7 @@ def main():
         'val_acc': logs['val_acc'][i], 
         'val_loss': logs['val_loss'][i]
     })
+  
+  wandb.finish()
 
-wandb.agent(sweep_id, function=main, count=100)
+wandb.agent(sweep_id, function=main, count=50)
