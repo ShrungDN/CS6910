@@ -2,7 +2,7 @@ import wandb
 from train import *
 from sweep_configurations import *
 
-CONFIG = sweep_configuration_3
+CONFIG = sweep_configuration_4
 
 DATASET = 'fashion_mnist'
 ENTITY = 'me19b168'

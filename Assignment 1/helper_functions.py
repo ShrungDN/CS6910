@@ -111,8 +111,17 @@ def get_dataset(dataset):
     else:
         raise Exception('Incorrect Dataset Name')
 
-    xtrain, xval, ytrain, yval = train_test_split(xfull, yfull, test_size = 0.1, random_state=2)
-
+    # xtrain, xval, ytrain, yval = train_test_split(xfull, yfull, test_size = 0.1, random_state=2)
+    np.random.seed(seed=2)
+    l = xfull.shape[0]
+    test_size = 0.1
+    ltrain = int(l * test_size)
+    idxs = np.arange(l)
+    np.random.shuffle(idxs)
+    xval= xfull[idxs[:ltrain]]
+    yval = yfull[idxs[:ltrain]]
+    xtrain = xfull[idxs[ltrain:]]
+    ytrain = yfull[idxs[ltrain:]]
     return (xtrain, ytrain), (xval, yval), (xtest, ytest), class_labels
 
 def scale_dataset(xtrain, ytrain, xval, yval, xtest, ytest, scaling):

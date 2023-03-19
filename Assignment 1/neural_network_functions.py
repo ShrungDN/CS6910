@@ -46,3 +46,8 @@ def backward(y, params, yhat, cache, act_der, loss_func_der, WD):
       del_ak = (del_ak @ params['W' + str(k)].T) * act_der(cache['A' + str(k-1)])
   return del_params
 
+def predict(inp, params, config):
+  act, _ = get_activation(config['activation'])
+  yhat, _ = forward(inp, params, act)
+  preds = np.argmax(yhat, axis=1)
+  return preds

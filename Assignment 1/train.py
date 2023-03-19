@@ -114,6 +114,9 @@ def train(xtrain, ytrain, xval, yval, config, verbose=False, seed=None):
   return params, logs
 
 if __name__ == '__main__':
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+  from sklearn.metrics import confusion_matrix
 
   args = parse_arguments()
   
@@ -139,11 +142,90 @@ if __name__ == '__main__':
   params, logs = train(xtrain=xtrain_inp, ytrain=ytrain_inp, xval=xval_inp, yval=yval_inp, config=config, verbose=True, seed=0)
 
   train_loss, train_acc = eval_params(xtrain_inp, ytrain_inp, params, config)
-  val_loss, val_acc = eval_params(xval_inp, yval_inp, params, config)
-  test_loss, test_acc = eval_params(xtest_inp, ytest_inp, params, config)
+  val_loss, val_acc= eval_params(xval_inp, yval_inp, params, config)
+  test_loss, test_acc= eval_params(xtest_inp, ytest_inp, params, config)
 
+  ytrain_hat = predict(xtrain_inp, params, config)
+  yval_hat = predict(xval_inp, params, config)
+  ytest_hat = predict(xtest_inp, params, config)
+
+  CM_train = confusion_matrix(ytrain, ytrain_hat)
+  CM_val = confusion_matrix(yval, yval_hat)
+  CM_test = confusion_matrix(ytest, ytest_hat)
+
+  _class_labels = [class_labels[k] for k in range(10)]  
+  plt.figure(figsize=(10,10))
+  _CM_train = sns.heatmap(CM_train, annot=True, xticklabels=_class_labels, yticklabels=_class_labels, fmt='g', annot_kws={"fontsize":6}, cmap='Greens')
+  plt.xlabel('Predicted')
+  plt.ylabel('True')
+  plt.xticks(rotation=45)
+  plt.yticks(rotation=45)
+  plt.title('Train Data Confusion Matrix')
+
+  plt.figure(figsize=(10,10))
+  _CM_val = sns.heatmap(CM_val, annot=True, xticklabels=_class_labels, yticklabels=_class_labels, fmt='g', annot_kws={"fontsize":6}, cmap='Greens')
+  plt.xlabel('Predicted')
+  plt.ylabel('True')
+  plt.xticks(rotation=45)
+  plt.yticks(rotation=45)
+  plt.title('Validation Data Confusion Matrix')
+
+  plt.figure(figsize=(10,10))
+  _CM_test= sns.heatmap(CM_test, annot=True, xticklabels=_class_labels, yticklabels=_class_labels, fmt='g', annot_kws={"fontsize":6}, cmap='Greens')
+  plt.xlabel('Predicted')
+  plt.ylabel('True')
+  plt.xticks(rotation=45)
+  plt.yticks(rotation=45)
+  plt.title('Test Data Confusion Matrix')
+
+  if args.wandb_log == 'True':
+    ENTITY = args.wandb_entity
+    PROJECT = args.wandb_project
+    NAME = args.wandb_name
+    import wandb
+    wandb.login()
+    run = wandb.init(entity=ENTITY, project=PROJECT, name=NAME)
+
+    for i in range(len(logs['epochs'])):
+      wandb.log({
+          'epochs': logs['epochs'][i],
+          'train_acc': logs['train_acc'][i],
+          'train_loss': logs['train_loss'][i], 
+          'val_acc': logs['val_acc'][i], 
+          'val_loss': logs['val_loss'][i]
+      })
+
+    wandb.log({'CM_train': wandb.Image(_CM_train)})
+    wandb.log({'CM_val': wandb.Image(_CM_val)})
+    wandb.log({'CM_test': wandb.Image(_CM_test)})
+
+    wandb.log({'Train Accuracy': train_acc})
+    wandb.log({'Validation Accuracy': val_acc})
+    wandb.log({'Test Accuracy': test_acc})
+    
+    wandb.finish()
+  
   print()
   print('Model Evaluation:')
   print(f'Training: Loss = {train_loss:.4f} Accuracy = {train_acc:.4f}')
   print(f'Validation: Loss = {val_loss:.4f} Accuracy = {val_acc:.4f}')
   print(f'Testing: Loss = {test_loss:.4f} Accuracy = {test_acc:.4f}')
+  print()
+  print("Confusion Matrix of Training Data:")
+  print(CM_train)
+  print()
+  print("Confusion Matrix of Validation Data:")
+  print(CM_val)
+  print()
+  print("Confusion Matrix of Test Data:")
+  print(CM_test)
+
+  plt.show()
+
+  # Uncomment to view predictions of an image: it takes few flattened images from test set and displays predictions
+  # for _k in [11, 12, 13, 14, 15]:
+  #   testimg = xtest_inp[_k]
+  #   plt.figure()
+  #   plt.imshow(testimg.reshape(28,28), cmap='gray')
+  #   plt.title(f'Pred: {class_labels[predict(testimg, params, config)[0]]}   True: {class_labels[ytest[_k]]}')
+  # plt.show()
