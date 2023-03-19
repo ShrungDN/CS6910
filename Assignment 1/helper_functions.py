@@ -1,6 +1,5 @@
 import numpy as np 
 import pandas as pd
-from sklearn.model_selection import train_test_split
 
 def sigmoid(x):
   return 1/(1+np.exp(-x))
@@ -111,7 +110,6 @@ def get_dataset(dataset):
     else:
         raise Exception('Incorrect Dataset Name')
 
-    # xtrain, xval, ytrain, yval = train_test_split(xfull, yfull, test_size = 0.1, random_state=2)
     np.random.seed(seed=2)
     l = xfull.shape[0]
     test_size = 0.1
