@@ -33,7 +33,7 @@ usage: python3 train.py [-h --help HELP]
                         [-we --wandb_entity] <string>
                         [-wn --wandb_name] <string>
                         [-wl --wandb_log] <"True", "False">
-                        [-d --dataset] <string>
+                        [-d --dataset] <"fashion_mnist", "mnist">
                         [-e --epochs] <int>
                         [-b --batch_size] <int>
                         [-l --loss] <"cross_entropy", "mean_squared_error">
