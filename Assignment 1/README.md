@@ -27,7 +27,7 @@ Python file that makes use of train.py to log results onto WandB. It is used for
 
 The following are the arguments that train.py takes. Using the help command shows a more detailed description of what each of the arguments do. 
 
-**Usage**
+**train.py Usage**
 ```
 usage: python3 train.py [-h --help] 
                         [-wp --wandb_project] <string>
