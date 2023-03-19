@@ -4,27 +4,27 @@ Shrung D N - ME19B168 - Assignment 1
 **Usage**
 ```
 usage: python3 train.py [-h --help HELP] 
-                        [-wp --wandb_project]
-                        [-we --wandb_entity]
-                        [-wn --wandb_name]
-                        [-wl --wandb_log]
-                        [-d --dataset]
-                        [-e --epochs]
-                        [-b --batch_size]
-                        [-l --loss]
-                        [-o --optimizer]
-                        [-lr --learning_rate]
-                        [-m --momentum]
-                        [-beta --beta]
-                        [-beta1 --beta1]
-                        [-beta2 --beta2]
-                        [-eps --epsilon]
-                        [-w_d --weight_decay]
-                        [-w_i --weight_init]
-                        [-nhl --num_layers]
-                        [-sz --hidden_size]
-                        [-a --activation]
-                        [-ds --data_scaling]             	
+                        [-wp --wandb_project] <string>
+                        [-we --wandb_entity] <string>
+                        [-wn --wandb_name] <string>
+                        [-wl --wandb_log] "True" or "False"
+                        [-d --dataset] <string>
+                        [-e --epochs] <int>
+                        [-b --batch_size] <int>
+                        [-l --loss] "cross_entropy", "mean_squared_error"
+                        [-o --optimizer] "sgd", "momentum", "nag", "rmsprop", "adam", "nadam"
+                        [-lr --learning_rate] <float>
+                        [-m --momentum] <float>
+                        [-beta --beta] <float>
+                        [-beta1 --beta1] <float>
+                        [-beta2 --beta2] <float>
+                        [-eps --epsilon] <float>
+                        [-w_d --weight_decay] <float>
+                        [-w_i --weight_init] "random", "Xavier"
+                        [-nhl --num_layers] <int>
+                        [-sz --hidden_size] <int>
+                        [-a --activation] "identity", "sigmoid", "tanh", "ReLU"
+                        [-ds --data_scaling] "min_max", "standard"       	
 ```
 
 Optimal Hyperparameters found for Fashion MNIST dataset:

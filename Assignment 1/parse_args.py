@@ -22,7 +22,7 @@ def parse_arguments():
     parser.add_argument('-w_i', '--weight_init', type=str, default='Xavier', help='Type of weight initialization: "random" or "Xavier"')
     parser.add_argument('-nhl', '--num_layers', type=int, default=5, help='Number of hidden layers in the neural network')
     parser.add_argument('-sz', '--hidden_size', type=int, default=128, help='Number of neurons in each hidden layer')
-    parser.add_argument('-a', '--activation', type=str, default='ReLU', help='Activation function to be used: "identity", "sigmoid", "tanh" or "ReLU')
+    parser.add_argument('-a', '--activation', type=str, default='ReLU', help='Activation function to be used: "identity", "sigmoid", "tanh" or "ReLU"')
     parser.add_argument('-ds', '--dataset_scaling', type=str, default='standard', help='Type of scaling to be used for the data: "min_max" or "standard"')
    
     args = parser.parse_args()
