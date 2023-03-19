@@ -1,6 +1,38 @@
 # CS6910
 Shrung D N - ME19B168 - Assignment 1
 
+**helper_functions.py**
+
+Python file with helper functions.
+
+
+**nerual_network_functions.py**
+
+Python file with functions that are used to perform the various operations in a neural network - forward pass, backpropagation, etc.
+
+
+
+**parse_args.py**
+
+Python file to parse the arguments provided by the user for the train.py file in the terminal. 
+
+
+**sweep_configurations.py**
+
+Python file with various sweep configurations used by wandb_train.py, for hyperparameter tuning. The sweep configuration can be changed by editing the wandb.py file
+
+
+**train.py**
+
+Python file that accepts arguments from the user and trains a feed forward neural network. It also displays the evaluation metrics of the model and can additionally log the results onto WandB if required. 
+
+
+**wandb_train.py**
+
+Python file that makes use of train.py to log results onto WandB. It is used for hyperparameter search. 
+
+
+
 **Usage**
 ```
 usage: python3 train.py [-h --help HELP] 
