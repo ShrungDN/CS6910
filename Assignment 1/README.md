@@ -28,7 +28,7 @@ Python file that makes use of train.py to log results onto WandB. It is used for
 
 **Usage**
 ```
-usage: python3 train.py [-h --help HELP] 
+usage: python3 train.py [-h --help] 
                         [-wp --wandb_project] <string>
                         [-we --wandb_entity] <string>
                         [-wn --wandb_name] <string>
