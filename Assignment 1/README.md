@@ -9,7 +9,6 @@ Python file with helper functions.
 Python file with functions that are used to perform the various operations in a neural network - forward pass, backpropagation, etc.
 
 
-
 **parse_args.py**:
 Python file to parse the arguments provided by the user for the train.py file in the terminal. 
 
@@ -33,12 +32,12 @@ usage: python3 train.py [-h --help HELP]
                         [-wp --wandb_project] <string>
                         [-we --wandb_entity] <string>
                         [-wn --wandb_name] <string>
-                        [-wl --wandb_log] "True" or "False"
+                        [-wl --wandb_log] <"True", "False">
                         [-d --dataset] <string>
                         [-e --epochs] <int>
                         [-b --batch_size] <int>
-                        [-l --loss] "cross_entropy", "mean_squared_error"
-                        [-o --optimizer] "sgd", "momentum", "nag", "rmsprop", "adam", "nadam"
+                        [-l --loss] <"cross_entropy", "mean_squared_error">
+                        [-o --optimizer] <"sgd", "momentum", "nag", "rmsprop", "adam", "nadam">
                         [-lr --learning_rate] <float>
                         [-m --momentum] <float>
                         [-beta --beta] <float>
@@ -46,11 +45,11 @@ usage: python3 train.py [-h --help HELP]
                         [-beta2 --beta2] <float>
                         [-eps --epsilon] <float>
                         [-w_d --weight_decay] <float>
-                        [-w_i --weight_init] "random", "Xavier"
+                        [-w_i --weight_init] <"random", "Xavier">
                         [-nhl --num_layers] <int>
                         [-sz --hidden_size] <int>
-                        [-a --activation] "identity", "sigmoid", "tanh", "ReLU"
-                        [-ds --data_scaling] "min_max", "standard"       	
+                        [-a --activation] <"identity", "sigmoid", "tanh", "ReLU">
+                        [-ds --data_scaling] <"min_max", "standard">       	
 ```
 
 Optimal Hyperparameters found for Fashion MNIST dataset:
