@@ -25,6 +25,7 @@ Python file that accepts arguments from the user and trains a feed forward neura
 Python file that makes use of train.py to log results onto WandB. It is used for hyperparameter search. 
 
 
+The following are the arguments that train.py takes. Using the help command shows a more detailed description of what each of the arguments do. 
 
 **Usage**
 ```
