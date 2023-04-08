@@ -2,15 +2,12 @@ from helper_functions import *
 from model import CNNModel
 from parse_args import parse_arguments
 
-from torch.utils.data import DataLoader
-from torchvision.datasets import ImageFolder
 from torchsummary import summary
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adadelta, Adagrad, Adam, NAdam, RMSprop
 
 def main(config, train_data_path, test_data_path):
   IMGDIMS = config['IMGDIMS']
-  NUM_WORKERS = config['NUM_WORKERS']
   BATCH_SIZE = config['BATCH_SIZE']
   MEAN, STD = config['MEAN_STD']
   DATA_AUG = config['DATA_AUG']
@@ -19,46 +16,52 @@ def main(config, train_data_path, test_data_path):
   OPTIM = config['OPTIM']
   LOSS_FUNC = config['LOSS_FUNC']
 
-  train_transform, val_test_transform = get_transforms(DATA_AUG, IMGDIMS, MEAN, STD)
-
-  train_dataset = ImageFolder(root=train_data_path, transform=train_transform)
-  valid_dataset = ImageFolder(root=test_data_path, transform=val_test_transform)
-
-  train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS, pin_memory=True)
-  valid_loader = DataLoader(valid_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS, pin_memory=True)
-
-  class_to_idx = train_dataset.class_to_idx
-  classes = train_dataset.classes
-
   device = ('cuda' if torch.cuda.is_available() else 'cpu')
   print(f"Device: {device}\n")
+
+  train_transform, val_test_transform = get_transforms(DATA_AUG, IMGDIMS, MEAN, STD)
+
+  train_loader, val_loader, test_loader, class_to_idx = get_data_loaders(train_data_path, train_transform, test_data_path, val_test_transform, BATCH_SIZE)
 
   model = CNNModel()
   model.to(device, non_blocking=True)
   summary(model, (3, IMGDIMS[0], IMGDIMS[1]))
+  print()
 
   optimizer = OPTIM(model.parameters(), lr=LR)
   criterion = LOSS_FUNC()
 
-  train_loss, valid_loss = [], []
-  train_acc, valid_acc = [], []
+  logs = {
+     'epochs': [],
+     'train_loss': [],
+     'train_acc': [],
+     'val_loss': [],
+     'val_acc': []
+  }
+
   for epoch in range(EPOCHS):
-      print(f"[INFO]: Epoch {epoch+1} of {EPOCHS}")
-      train_epoch_loss, train_epoch_acc = train(model, train_loader, 
-                                                optimizer, criterion, device)
-      valid_epoch_loss, valid_epoch_acc = validate(model, valid_loader,  
-                                                   criterion, device)
-      train_loss.append(train_epoch_loss)
-      valid_loss.append(valid_epoch_loss)
-      train_acc.append(train_epoch_acc)
-      valid_acc.append(valid_epoch_acc)
-      print(f"Training loss: {train_epoch_loss:.3f}, training acc: {train_epoch_acc:.3f}")
-      print(f"Validation loss: {valid_epoch_loss:.3f}, validation acc: {valid_epoch_acc:.3f}")
+      train_epoch_loss, train_epoch_acc = train(model, train_loader, optimizer, criterion, device)
+      val_epoch_loss, val_epoch_acc = validate(model, val_loader, criterion, device)
+      
+      logs['train_loss'].append(train_epoch_loss)
+      logs['train_acc'].append(train_epoch_acc)
+      logs['val_loss'].append(val_epoch_loss)
+      logs['val_acc'].append(val_epoch_loss)
+
+      print(f"Training: Epoch {epoch+1} / {EPOCHS}")
+      print(f'Training: Loss = {train_epoch_loss:.4f} Accuracy = {train_epoch_acc:.4f}  Validation: Loss = {val_epoch_loss:.4f} Accuracy = {val_epoch_acc:.4f}')
       print('-'*50)
-  print('TRAINING COMPLETE')
+
+  model_metrics = eval_model(train_loader, val_loader, test_loader, criterion, device)
+  print('Final Model Metrics:')
+  print('Training: Accuracy = {} Loss = {}'.format(model_metrics['train_acc'], model_metrics['train_loss']))
+  print('Validation: Accuracy = {} Loss = {}'.format(model_metrics['val_acc'], model_metrics['val_loss']))
+  print('Testing: Accuracy = {} Loss = {}'.format(model_metrics['test_acc'], model_metrics['test_loss']))
+
+  return model
 
 if __name__ == '__main__':
-#   args = parse_arguments()
+  args = parse_arguments()
 
   config = {
     'IMGDIMS': (256, 256),
