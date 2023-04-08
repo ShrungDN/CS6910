@@ -11,8 +11,8 @@ def main(config, train_data_path, test_data_path):
   DATA_AUG = config['DATA_AUG']
   LR = config['LR']
   EPOCHS = config['EPOCHS']
-  OPTIM = config['OPTIM']
-  LOSS_FUNC = config['LOSS_FUNC']
+  OPTIM = get_optimizer(config['OPTIM'])
+  LOSS_FUNC = get_loss_func(config['LOSS_FUNC'])
 
   device = ('cuda' if torch.cuda.is_available() else 'cpu')
   print(f"Device: {device}\n")
@@ -42,6 +42,7 @@ def main(config, train_data_path, test_data_path):
     train_epoch_loss, train_epoch_acc = train(model, train_loader, optimizer, criterion, device)
     val_epoch_loss, val_epoch_acc = validate(model, val_loader, criterion, device)
     
+    logs['epochs'].append(epoch + 1)
     logs['train_loss'].append(train_epoch_loss)
     logs['train_acc'].append(train_epoch_acc)
     logs['val_loss'].append(val_epoch_loss)
@@ -73,8 +74,8 @@ if __name__ == '__main__':
             'DATA_AUG': args.data_aug,
             'LR': args.learning_rate,
             'EPOCHS': args.epochs,
-            'OPTIM': get_optimizer(args.optimizer),
-            'LOSS_FUNC': get_loss_func(args.loss)
+            'OPTIM': args.optimizer,
+            'LOSS_FUNC': args.loss
             }
   
   
