@@ -3,8 +3,6 @@ from model import CNNModel
 from parse_args import parse_arguments
 
 from torchsummary import summary
-from torch.nn import CrossEntropyLoss
-from torch.optim import Adadelta, Adagrad, Adam, NAdam, RMSprop
 
 def main(config, train_data_path, test_data_path):
   IMGDIMS = config['IMGDIMS']
@@ -40,55 +38,77 @@ def main(config, train_data_path, test_data_path):
   }
 
   for epoch in range(EPOCHS):
-      train_epoch_loss, train_epoch_acc = train(model, train_loader, optimizer, criterion, device)
-      val_epoch_loss, val_epoch_acc = validate(model, val_loader, criterion, device)
-      
-      logs['train_loss'].append(train_epoch_loss)
-      logs['train_acc'].append(train_epoch_acc)
-      logs['val_loss'].append(val_epoch_loss)
-      logs['val_acc'].append(val_epoch_loss)
+    print(f"Training: Epoch {epoch+1} / {EPOCHS}")
+    train_epoch_loss, train_epoch_acc = train(model, train_loader, optimizer, criterion, device)
+    val_epoch_loss, val_epoch_acc = validate(model, val_loader, criterion, device)
+    
+    logs['train_loss'].append(train_epoch_loss)
+    logs['train_acc'].append(train_epoch_acc)
+    logs['val_loss'].append(val_epoch_loss)
+    logs['val_acc'].append(val_epoch_loss)
 
-      print(f"Training: Epoch {epoch+1} / {EPOCHS}")
-      print(f'Training: Loss = {train_epoch_loss:.4f} Accuracy = {train_epoch_acc:.4f}  Validation: Loss = {val_epoch_loss:.4f} Accuracy = {val_epoch_acc:.4f}')
-      print('-'*50)
+    print(f'Training: Loss = {train_epoch_loss:.4f} Accuracy = {train_epoch_acc:.4f}  Validation: Loss = {val_epoch_loss:.4f} Accuracy = {val_epoch_acc:.4f}')
+    print('-'*50)
 
-  model_metrics = eval_model(train_loader, val_loader, test_loader, criterion, device)
-  print('Final Model Metrics:')
-  print('Training: Accuracy = {} Loss = {}'.format(model_metrics['train_acc'], model_metrics['train_loss']))
-  print('Validation: Accuracy = {} Loss = {}'.format(model_metrics['val_acc'], model_metrics['val_loss']))
-  print('Testing: Accuracy = {} Loss = {}'.format(model_metrics['test_acc'], model_metrics['test_loss']))
-
-  return model
+  model_metrics = eval_model(model, train_loader, val_loader, test_loader, criterion, device)
+  return model, logs, model_metrics
 
 if __name__ == '__main__':
   args = parse_arguments()
 
   config = {
     'IMGDIMS': (256, 256),
-    'NUM_WORKERS': 2,
     'BATCH_SIZE': 64,
     'MEAN_STD': ([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
     'DATA_AUG': True,
     'LR': 1e-3,
-    'EPOCHS': 4,
+    'EPOCHS': 5,
     'OPTIM': Adadelta,
     'LOSS_FUNC': CrossEntropyLoss
   }
 
-#    config = {'EPOCHS': args.epochs,
-#             'BATCH_SIZE': args.batch_size,
-#             'loss_func': args.loss,
-#             'optim': args.optimizer,
-#             'LR': args.learning_rate,
-#             'MOMENTUM': args.momentum,
-#             'BETA': args.beta,
-#             'BETA1': args.beta1,
-#             'BETA2': args.beta2, 
-#             'EPSILON': args.epsilon,
-#             'WD': args.weight_decay,
-#             'W_init': args.weight_init,
-#             'activation': args.activation,
-#             'n_hidden': [args.hidden_size] * args.num_layers
-#             }
-   
-  main(config, '/content/inaturalist_12K/train', '/content/inaturalist_12K/val')
+  config = {'IMGDIMS': (args.dimsw, args.dimsh),
+            'BATCH_SIZE': args.batch_size,
+            'MEAN_STD': ([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
+            'DATA_AUG': args.data_aug,
+            'LR': args.learning_rate,
+            'EPOCHS': args.epochs,
+            'OPTIM': get_optimizer(args.optimizer),
+            'LOSS_FUNC': get_loss_func(args.loss)
+            }
+  
+  
+  # main(config, '/content/inaturalist_12K/train', '/content/inaturalist_12K/val')
+  model, logs, model_metrics = main(config, args.train_data_path, args.test_data_path)
+
+  print('Final Model Metrics:')
+  print('Training: Accuracy = {} Loss = {}'.format(model_metrics['train_acc'], model_metrics['train_loss']))
+  print('Validation: Accuracy = {} Loss = {}'.format(model_metrics['val_acc'], model_metrics['val_loss']))
+  print('Testing: Accuracy = {} Loss = {}'.format(model_metrics['test_acc'], model_metrics['test_loss']))
+  print()
+
+  if args.wandb_log == 'True':
+    import wandb
+    ENTITY = args.wandb_entity
+    PROJECT = args.wandb_project
+    NAME = args.wandb_name
+
+    wandb.login()
+    run = wandb.init(entity=ENTITY, project=PROJECT, name=NAME)
+
+    wandb.log(config)
+
+    for i in range(len(logs['epochs'])):
+      wandb.log({
+          'epochs': logs['epochs'][i],
+          'train_acc': logs['train_acc'][i],
+          'train_loss': logs['train_loss'][i], 
+          'val_acc': logs['val_acc'][i], 
+          'val_loss': logs['val_loss'][i]
+      })
+
+    wandb.log({'Train Accuracy': model_metrics['train_acc']})
+    wandb.log({'Validation Accuracy': model_metrics['val_acc']})
+    wandb.log({'Test Accuracy': model_metrics['test_acc']})
+    
+    wandb.finish()    

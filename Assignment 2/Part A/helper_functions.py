@@ -6,6 +6,8 @@ from torchvision.transforms import transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 from torch.utils.data import random_split
+from torch.nn import CrossEntropyLoss
+from torch.optim import Adadelta, Adagrad, Adam, NAdam, RMSprop
 
 def get_transforms(data_aug, imgdims, mean, std):
   if data_aug:
@@ -39,7 +41,7 @@ def get_data_loaders(train_data_path, train_transform, test_data_path, val_test_
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True)
-    return train_loader, val_loader, test_loader, train_dataset.class_to_idx
+    return train_loader, val_loader, test_loader, train_val_dataset.class_to_idx
 
 def train(model, train_loader, optimizer, criterion, device):
     print('Training')
@@ -140,8 +142,8 @@ def eval_model(model, train_loader, val_loader, test_loader, criterion, device):
             test_loss += loss.item()
             _, preds = torch.max(outputs.data, 1)
             test_acc += (preds == labels).sum().item()
-    test_loss = train_loss / counter
-    test_acc = 100. * (train_acc / len(train_loader.dataset))
+    test_loss = test_loss / counter
+    test_acc = 100. * (test_acc / len(test_loader.dataset))
 
     model_metrics = {
         'train_loss' : train_loss,
@@ -153,3 +155,26 @@ def eval_model(model, train_loader, val_loader, test_loader, criterion, device):
     }
 
     return model_metrics
+
+from torch.nn import CrossEntropyLoss
+from torch.optim import Adadelta, Adagrad, Adam, NAdam, RMSprop
+
+def get_optimizer(opt):
+    if opt == 'Adam':
+        return Adam
+    elif opt == 'Adadelta':
+        return Adadelta
+    elif opt == 'Adagrad':
+        return Adagrad
+    elif opt == 'NAdam':
+        return NAdam
+    elif opt == 'RMSprop':
+        return RMSprop
+    else:
+        raise Exception('Incorrect Optimizer')
+    
+def get_loss_func(loss_func):
+    if loss_func == 'CrossEntropyLoss':
+        return CrossEntropyLoss
+    else:
+        raise Exception('Incorrect Loss Function')
