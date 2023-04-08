@@ -1,5 +1,5 @@
 import numpy as np
-import tqdm 
+from tqdm import tqdm
 
 import torch
 from torchvision.transforms import transforms
